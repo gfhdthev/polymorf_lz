@@ -23,9 +23,12 @@ class Bank:
         self.df1 = self.df[self.df['Время оплаты'] >= '09:00:00']    # строки, удовлетворяющие условию
         self.df1 = self.df1[self.df1['Время оплаты'] <= '23:00:00']    # строки, удовлетворяющие условию
         self.df1.to_csv('first.csv')
-        self.df2 = self.df[self.df['Время оплаты'] <= '09:00:00']    # строки, не удовлетворяющие условию
-        self.df2 = self.df2[self.df2['Время оплаты'] >= '23:00:00']    # строки, не удовлетворяющие условию
-        self.df2.to_csv('second.csv')
+    
+
+        self.df2 = self.df[self.df['Время оплаты'] < '09:00:00']    # строки, не удовлетворяющие условию
+        self.df3 = self.df[self.df['Время оплаты'] > '23:00:00']    # строки, не удовлетворяющие условию
+        self.result = pd.concat([self.df2, self.df3], axis=0)
+        self.result.to_csv('second.csv')
 
     def __del__(self):
         print('Датафрейм удален')
